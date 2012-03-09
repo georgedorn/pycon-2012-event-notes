@@ -1,0 +1,36 @@
+-class definitions are instances of their metaclasses
+-metaclasses inherit from 'type'
+-can create classes without the class keyword:
+  	def func():
+		pass
+  	attrs = {...}
+-class creation invokes type.__new__ and type.__init__
+-'type' is the top of the class chain, not 'object'
+- create a metaclass:
+	class Meta(type):
+		pass
+
+	class MyClass(object):
+		__metaclass__ = Meta
+
+(or in python3, class MyClass(meta=Meta)
+
+- do stuff with metaclass:
+	-override __new__ and __init__
+	-e.g. django's models, where the metaclass converts your model's class attributes into ._meta.fields and adds them as attributes on instances
+	
+-another option:  class factories
+	def make_class():
+		class Foo(object):
+			pass
+		return Foo
+	- generally more expensive
+
+-warnings:
+	- added complexity.
+	- e.g. classes are also not always needed, neither are metaclasses
+	- "Debugging is twice as hard as writing code..."
+
+-why?
+	-can be cleaner and clearer, and provide the API you want (see Django's models)
+

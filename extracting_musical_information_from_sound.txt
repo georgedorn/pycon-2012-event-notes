@@ -1,0 +1,39 @@
+-decompile an audio file into music information
+-echonest
+-install pyechonest
+-get an API key
+-e.g.
+
+track = track_from_file(mp3_file_object)
+track.key #key of music
+track.key_confidence #how confidence it is
+track.tempo #bpm
+track.tempo_confidence
+
+track.sections:
+	list of dicts about autodetected section changes
+track.bars:
+	tries to determine the bars
+track.tatum:
+	signature?
+track.segments:
+	very small, every note-ish
+	also contains loudness points and levels
+	also contains pitch data of the segment, can be used to deduce chords
+	also contains timbre?  magic numbers describe what kind of instrument this is
+
+uses:
+- Matt Ogle's tool to analyze your last.fm song keys
+- Evidence of the loudness war
+- determine if drummer's using a click track
+- splice songs (bicklenack)
+- morecowbell
+- swinger, deswinger
+
+Other libraries:
+- marsyas, vamp, aubio
+
+Qs:
+- Embedded code is holovaty's own flash code
+- percussion detection is good.  maybe timbre can determine drum hit type?
+- other scales like pentatonic?  no clue, but probably.
