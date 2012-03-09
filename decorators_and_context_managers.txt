@@ -1,0 +1,36 @@
+decorators
+	common ones:
+		-@property (equivalent to fn = property(fn))
+
+	decorators are functions that take other functions, and replace them in the defined namespace
+	decorators that take parameters are functions that take parameters and return a decorator
+
+	classic example:  @memoize
+
+	decorated functions are replaced with original, changing __doc__ or whatever to belong to new function
+		To fix this, see decorator class, allowing you to decorate decorators with @decorate, which preserves original docstrings.  @decorator also simplifies defining decorators, removing need for nested function.
+	decorators can be classes; define __call__ instead to return a function.
+
+	functools.total_ordering decorates classes to define more useful methods based on a couple methods
+	
+
+context managers
+	classic example:  open() is a context manager.  with open(foo) as fh: do stuff with fh;
+	
+	
+	define __enter__ and __exit__.
+	__exit__ takes exception classes to determine if any exceptions happened.
+		can use this feature to standardize responses to exceptions
+			with my_error_handling():
+				do_stuff()
+		__exit__ should probably return true
+
+	@contextlib.contextmanager takes a function with a yield; executes function up to yield as part of __enter__, resumes function as __exit__.
+
+	good for refactoring code to be more readable, particularly in cases where conditions change for a block, then revert
+
+	contextlib.closing wraps a non-context-manager to allow use of with; calls close() on the function's return after exit.
+	
+	good for: locks, globals, profiling, monkey patching, transactions
+
+	speakerdeck.com/u/brondsem

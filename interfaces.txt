@@ -1,0 +1,27 @@
+"protocols"
+	informal = duck typing
+	e.g.s:
+		expected ways of interfacing with objects, e.g. __call__ or __iter__, context managers
+		file-like objects (StringIO, file)
+		pickle's protocol
+	no validation, errors at runtime not parsetime
+	methods not checked until actually executed or interacted with
+	duck typing = "requiring a specific interface rather than a specific type"
+
+interfaces
+	pep 245
+	adaptation pep 246
+
+generic functions (pep 3124)
+
+
+
+abstract base classes
+	abstract now exists, and checking is still done at runtime. - are any methods still abstract?  if so, typeerror, this is an ABC.
+	collections.abc
+		- Mapping (immutable dict) (and dict is a subclass of Mapping)
+		- abc.ABCMeta
+		- some mixins like Iterator
+		- many provide extra functionality, like Mapping provides __getitem__ and whatnot.
+
+
