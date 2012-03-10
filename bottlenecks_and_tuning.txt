@@ -1,0 +1,44 @@
+Test front-end first, but the web server is a good option, too.
+
+Most load testing fails to mimic real life situations.  Benchmarking is all about max throughput with arbitrary number of concurrent requests.
+
+most apache tests are unfair
+memory = base memory + (memory per thread)*threads
+memory usage is rarely which web server you're using
+
+default number of processes is probably not a good idea
+
+threads = number of concurrent, overlapping user requests
+
+processes > threads, to a point, because of the GIL, which effectively serializes threads
+if cpu bound, more processes
+if io bound, more threads (as they wait for responses)
+
+need extra headroom as one long-running process can cause a logjam
+
+if using wsgi, throwing a proxy in front (like nginx) offloads the http overhead out from the python threads
+connection funneling
+if you can kill long-running processes before they hit the webserver, logjams can be reduced or prevented
+	restarts don't work if the listener holds requests through restarts
+
+preload everything instead of autoscaling
+	start max processes, preloading application
+	don't restart after arbitrary x requests
+	startup time sucks
+	wsgi_import_script - note that django's startup code doesn't actually load your app until the first request happens.  any third party tools to speed this up?
+
+use more servers
+	but preload still
+
+monitoring:
+	monit, munin, cacti, nagios
+	django-debug-toolbar - only good for dev
+	sentry - only exceptions
+	lowry's talk.  maybe a PEP for a data sampler api?
+	
+
+benchmarks are for evaluating server behavior, not comparing servers
+new relic
+	free light version
+
+
