@@ -1,0 +1,8 @@
+Use good HTTP codes.
+Graceful degredation to older versions of the API.
+Flexible serialization (support whatever the client wants; xml, plists, yaml)
+Flexibility is paramount
+Data can round-trip.  Whatever you GET, you should be able to PUSH back the exact same format.
+HATEOAS - no documentation required
+	entire API should be discoverable
+

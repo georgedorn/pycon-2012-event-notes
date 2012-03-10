@@ -1,0 +1,62 @@
+use consistant hashing for sharding to ensure that adding a server doesn't cause a huge number of cache misses
+	e.g. 'circular' hashing
+	randomize positions per server, multiple points per server, can use this to tune according to capacity
+	
+memoization
+	store inside python process
+	
+handful of expensive operations
+	rollups, expensive queries, external service calls
+	easy to handle invalidation in this scenario
+	thundering herd problem if you don't precache
+	
+old antipattern
+	cache with an 'appropriate' timeout
+	when it times out, recompute it on next request
+simple fix:
+	cron
+
+new pattern:
+	cache forever, invalidate explicitly
+	(import this)?
+	never delete, overwrite
+	refresh cache asynchronously
+
+
+lots of small things:
+	cache all the users
+	harder invalidation
+	what are all the related keys?
+		cache the related keys?  probably not.
+	make cache keys unique (careful use of separators)
+	make cache keys consistant.  use a defined format string
+		format = '%(user)s:%(x)s:%(y)s'
+	maybe put all key format strings in one file per app
+
+keys:
+	add a version number to your keys
+	hash them if need to (e.g. unicode or spaces with memcached)
+
+
+publish cache:
+	strategy
+	e.g. varnish, squid
+	article is published, it won't change, cache on publish
+	nginx can serve directly from the publish cache (e.g. varnish)
+	has a problem with dynamic page content
+	django middleware
+
+cache 'doesnotexist' to avoid exceptions or 'None' resulting in db queries for nonexistent objects
+
+don't put cache code in templates
+don't put cache code in ORM or persistence layer
+
+django-newcache (good vs thundering herd)
+johnny-cache (caches results of queries)
+django-cache-machine (caches results of querysets)
+django-autocache
+
+don't pickle if using non-python to interact with cache
+	pretty much don't use pickle
+
+
