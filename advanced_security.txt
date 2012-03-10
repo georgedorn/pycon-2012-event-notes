@@ -1,0 +1,18 @@
+Don't use md5.
+Don't use sha256.
+Don't implement cryptography.
+Use transort encryption like SSL if that's what you're trying to do.
+Don't use random, use SystemRandom() which is less predictable.
+Don't use string compare for keys.  It is possible to deduce the desired string via timing differences.  You want constant time regardless of how right the string is.
+Don't load pickled data from the user.  Use JSON.
+pip isn't particularly secure.  md5s, doesn't always use ssl, etc.  
+    md5 comes from same location as package
+    pypi uses an untrusted cert
+    susceptible to man-in-the-middle
+
+USE REQUESTS, which checks if ssl is actually working.
+
+WIFI DNS hack - substitute you own response message on local WLAN.
+Insert code into setup.py, and it will be executed by pip/easy_install.
+Python doesn't have a constant-time string comparison function, and it may be impossible to write one.
+

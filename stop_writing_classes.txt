@@ -1,0 +1,15 @@
+many benefits of classes are nebulous.  e.g. "decoupling"
+yagni
+if your class has two methods and one is __init__, it's not a class
+namespaces are not for taxonomies, they're for preventing collisions
+LookupError is a great stdlib exception, use it
+stdlib exceptions might be sufficient
+FooException is redundant
+Good classes:
+    containers (but see heapq)
+    if a big colllection of functions all take the same parameter, maybe a class makes sense (e.g.heapq)
+
+bad classes:
+    python-oauth2, rewritten as python-foauth2
+    google api python client
+
