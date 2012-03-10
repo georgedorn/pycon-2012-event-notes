@@ -1,0 +1,51 @@
+tag strings as safe or don't disable autoescape (xss)
+use named urls to reduce problems when you change your urls {% url foo %}
+django-crispy-forms
+
+form.as_ul is probably easiest to style
+
+{% firstof foo.bar foo.baz %} is a good stand-in for simple {% if foo.bar %} {{foo.bar }} {% else %} {{foo.baz}} {%endif%}
+
+put template tags in app/templatetags/my_tags.py
+
+@register.filter
+template filters have gotten a great deal more simple:
+def cut(value, arg):
+  return value.replace(arg, '')
+
+No more token parsing.
+
+custom tags:
+{% current_time "my_format_string" %}
+
+see the simpletags library!
+django-templatetag-sugar
+django-classy-tags
+
+don't write a tag to does business log.  presentation logic only.
+keep them simple
+
+
+template loading:
+	def load_template_source():
+		...
+
+can use other languages, no prob.
+	- maybe slightly better performance
+	- jinja2:
+		- can call functions directly
+		- more powerful looping constructs
+		- performance
+
+speeding up django's templates:
+	cache template loaders to avoid filesystem hits
+	django-template-preprocessor (precompiles?)
+	django-pancake (flattens template files)
+	- template engine is probably not the bottleneck
+
+new 1.4 template features:
+	startapp/startproject can take a template name? (possibly for boilerplate? bootstrap?)
+	{% elif %}
+
+
+

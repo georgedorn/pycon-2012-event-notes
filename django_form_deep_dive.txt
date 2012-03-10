@@ -1,0 +1,70 @@
+basics:
+	views convert request to response
+	forms convert input to python objects
+	models are data
+
+forms have fields, fields have widgets
+instantiate forms with data (bound) or without data (unbound, for output)
+form.fields is a dict of field objects
+form['fieldname'] is a Field object with bound data, e.g. form['fieldname'].value()
+
+
+validation:
+validate fields first, them validate whole form
+form.is_valid() or form.full_clean()
+phases:  convert to python, validate, clean
+all three phases can raise exceptions, which prevents next phase
+
+define own clean_fieldname(); can raise ValidationError, but must returned cleaned data otherwise
+	non-required fields may not have data in self.cleaned_data
+after clean_*(), clean() is called.
+	called even if ValidationError raised by clean_foo()
+	clean() can access all self.cleaned_data, whereas clean_foo() can't assume other data has been set yet.
+initial data is not the same as default data; do default data in clean()
+
+form.has_changed(), form.changed_fields tells you what fields are no longer equal to initial_data
+form.FooField(show_hidden_initial=True) outputs a hidden field with initial values (e.g. for reset button)
+
+testing:
+	test expect initial states
+	test validation
+	test resulting cleaned_data
+
+	see rebar package; rebar.testing.flatten_to_dict handles initial data nicely
+	
+rendering forms:
+	CBVs, e.g. ProcessFormView, make some boilerplate go away
+	{% for field in form %}{{field.label_tag}}{{field}}{{field.errors}}{%endfor%}{{field.non_field_errors}}
+
+	other useful things:
+	field.label
+	field.label_tag
+	field.html_id
+	field.help_text
+
+	can override widgets in field description or specify classes in attrs
+	error_css_class, required_css_class on the form object itself
+	specify error_messages on a field (e.g. {'required':'This field is required you dolt'} )
+	
+	errors exist in an ErrorClass, which can be subclassed and specified during form instantiation.
+	
+multiple forms:
+	use prefix, which adds a prefix to the html name and id attrs.
+	formsets are multiple copies of the same form
+		requires {{formset.management_form}} which specifies number of forms, etc
+		formset.is_valid() also exists, formset.clean() can refer to each form (avoid duplicate names, e.g)
+		rebar.testing.flatten_to_dict works with formsets
+
+localization:
+	it works!
+
+dynamic forms:
+	modify form.fields directly if you need to, during __init__ after super() is done.
+
+yergler.net/2012/pycon-forms
+
+
+
+
+
+
