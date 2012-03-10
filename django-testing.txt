@@ -1,0 +1,103 @@
+github.com/carljm/django-testing-slides
+
+maybe new projects shouldn't run django core tests?
+./manage.py test [list of apps]
+
+issue: test discovery requires all tests imported into single module
+
+unittest2 discovery (or nose)
+settings.TEST_RUNNER
+	override DjangoTestRunner.build_suite() (see django-testing-slides)
+
+maybe some more options in 1.5
+
+testing types
+	unit - something like isolation
+		fails very fast, helps structure code (makes you think about what state you need to recreate to make code work)
+	system/integration/functional - how things interact and behave
+		slow and less useful failures, but catches bugs in how code interacts
+
+testing models
+	db tests are slow
+	don't need to save objects to test many of their methods
+	don't hit the db if you can avoid it
+	try to separate functionality that doesn't need to hit the db
+	you can mock the db layer, probably not a good idea.
+	avoid calling save() in complex methods; refactor the complex method to call unit-testable methods
+	
+django.test.TestCase
+	each test runs in a transaction, rolls back db after each test, monkey-patches transaction methods to noops
+	use TransactionTestCase if you want to test transaction.  Test runner now flushes each table, which is slow.
+
+don't use fixtures, they suck.  (applause)
+	hard to maintain
+	django-fixture-generator might suck less
+	sharing fixtures between tests couples them
+	fixtures are slow
+		see Eric Rose's talk about speeding them up
+
+model factories:
+	self.create_foo()
+	- note that many tests still might not need to save() the object.  e.g. a property that calculates based on the object's fields
+	factory_boy.  MymodelFactory.create() vs MymodelFactory.build() (which doesn't save to db)
+	you can use factories with fixture data, still cleaner
+
+no-DB enforcement:
+	@patch('django.db.backends.util.CursorWrapper') with an object that raises a runtime error.
+	(from django.utils.unittest import TestCase)
+	actually, django's test runner is smart enough to know if you wrote to the db, don't stress optimizing that one
+
+testing views
+	hard to unit test
+		lots of interdependencies
+		write less view code
+	
+		use RequestFactory to construct a fake request.  don't use client for unit tests.
+			bypasses most middleware, do stuff expilictly on the request object
+		call the view callable directly, then check the results in the request object. 
+			e.g. things that change request.session
+
+	or do integration testing
+		testing formsets is gross, especially if you are including prefix data
+		faking the post dict doesn't actually test your forms (e.g. formset.management_form could be missing)
+		
+		you can use WebTest with django.  see django-webtest.
+			tests via WSGI interface
+			can interact with the HTML (beautifulsoup?)
+			this actually tests the markup
+		
+		don't test implementation details like which templates were rendered with what contexts; if you're doing system test, test what the system returns given an input.
+
+in-browser testing (selenium, windmill)
+	got a lot easier in 1.4
+	inherit from LiveServerTestCase, which fires up a web server in another thread
+	
+
+what to test:
+	system tests for views
+		one and only one for each codepath through a view
+		don't test effects of other things called (e.g. forms) via client code; test the thing called
+	selenium tests for ajax/js
+	write way more unit tests than anything else
+		technically speaking, one assertion per test case, especially in unit tests
+		at least don't do multi-step tests.  set up state, do a thing, test result, done.  no lengthy process tests.
+
+doctests
+	if you have code in sphinx, for example, run it as a test.
+		ensures docs are kept up-to-date.
+	just don't overdo it.  docs are for docs.
+
+testing settings
+	@override_settings(MY_SETTING=foo)
+
+
+	
+	
+
+
+	
+
+	
+
+
+
