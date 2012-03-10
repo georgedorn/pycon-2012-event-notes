@@ -1,0 +1,46 @@
+Mailman 3 stuff:
+
+No more cleartext passwords, no more Happy Mailman Day
+Now backed by a database.
+	SQLite + PostgreSQL currently supported.
+	Migrations.
+	
+virtual domains
+	listname@domain.com
+	listname@domain2.com  works fine now
+	
+integrates with postfix/sendmail/exim, probably, via LMTP
+
+REST API
+	restish.io
+	wsgi-compatible
+	admin interface by other people, e.g. django-mailman
+	probably rest level 2?
+	no security on rest interface, DIY.
+	
+configurable chains of rules
+	pipeline of handlers
+	doesn't change message
+
+chain of modifiers
+	similar, but does change message with headers, etc
+	can also send a copy of the message to other handlers, like digesters, archivers, etc
+
+internationalized mail templates
+	e.g. language-specific message footers
+	refer to the templater via mailman:///listname/languagecode/templatename
+	can support external resources (via urllib2)
+	uses a system of overrides
+
+other
+	actually has a test suite
+	doctests
+	interfaces
+	.ini config
+	
+
+beta 1 released during or after pycon
+grackle?  next generation archiver
+test server
+
+	

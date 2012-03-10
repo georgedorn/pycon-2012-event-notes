@@ -1,0 +1,39 @@
+django-dockit
+	substitute for EAV?
+	no joins
+	define indexs on query operations, not fields
+	dockit-cms allows users to create documents and view points
+	
+	dockitcmsdemo.herokuapp.com
+
+
+darwin.galap@gmail.com
+
+LESS
+	like SASS
+	use objects and inheritance and whatnot
+	workflow:
+		django-compressor to bundle js and css files
+		COMPRESS_PRECOMPILERS
+		can turn on compression only in production, otherwise use client-side rendering
+
+	tinyurl.com/usinglesswithdjango
+
+Python 3.3
+	PEP 393 - unicode now a codepoint, reduces memory usage
+	IOError and OSError unified.
+	yield from generator (instead of for x in what: yield x)
+	
+
+hub
+	extensions/wrapper for github
+	hub checkout django/django
+	hub browse (fires up browser)
+	it's ruby.
+	push to multiple remotes
+	create github projects from command line
+	fork from command line
+	pull-requests from the command line
+	hub pull-request -i <ISSUE> (attach a pull request to an issue)
+	
+	

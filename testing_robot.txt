@@ -1,0 +1,8 @@
+bitbeam.org
+bitbe.am
+
+open source lego compatible building toy
+powered by selenium (almost)
+OpenSCAD
+OpenCV (computer vision)
+
