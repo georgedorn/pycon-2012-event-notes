@@ -1,0 +1,28 @@
+enamel:
+	declarative gui
+	not bound to wx or qt specifically
+	see widget gallery
+	
+mediagoblin:
+	python-powered youtube/flickr replacement.  AGPL.
+
+logging_tree:
+	potential augmenter for python's logging
+	introspection, more powerful configuration
+
+pyrasite:
+	uses pdb to inject code into running processes
+	works without debugging symbols turned on
+	good for profiling live running processes or injecting code
+	https://github.com/lmacken/pyrasite
+
+configglue
+	.ini configs
+	schema checking
+	django-configglue
+	declarative syntax for schema creation
+	set config in .ini but override on commandline
+	configglue.readthedocs.org
+	
+
+
