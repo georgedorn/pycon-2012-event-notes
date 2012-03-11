@@ -1,0 +1,60 @@
+why?
+	crawlers scrape html, which sucks (see magellan)
+	you know your data model, whereas google doesn't
+
+engine
+	sphinx?
+
+document is text + metadata
+
+stemming - roots words
+
+segments
+	sharded data storing inverted index (e.g. all of the whoosh files)
+
+index:
+	store docs.  extract highest text quality possible.  denormalize as much as possible.
+	tokenize. split text into words, e.g. on whitespace, standardize/normalize+lowercase,
+	stemming. during tokenizing, find stem of words to standardize further.  requires knowing the language well.
+		n-grams solves some stemming problems
+			all n-size substrings of words
+			edge n-grams are only start/finish of word
+				good for autocomplete
+			doesn't rely on knowing language structure
+			produces tons of terms in index
+	store in inverted index
+		key/value store, sorta
+		keys are terms from stemmed tokens
+		value = position data + document ids
+			position data can handle highlighting in result set
+
+segmenting the index
+	Lucene is common
+	can shard by hand
+
+searching
+	query parser
+		parse the structure of the query
+		re-use tokenizer/stemmer/n-gram maker to make query match what we did to the index
+	read index for every term in query
+	add every document that matches
+
+scoring
+	reorder resulting documents based on query->document matching
+		e.g. BM25, Phased, PageRank
+		BM25 is good at filtering out unknown stopwords
+
+faceting
+	track unique document ids for a given term
+	probably cull term list to something useful, or whitelist
+
+boost
+	save a boosted document with metadata to adjust scoring later
+
+more like this
+	find other documents indexed by similar terms
+	or use NLP to compare documents
+
+github.com/toastdriven/microsearch
+nlp.stanford.ed./IRBook
+speakerdeck
