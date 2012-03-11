@@ -55,6 +55,9 @@ more like this
 	find other documents indexed by similar terms
 	or use NLP to compare documents
 
+phrase searching
+	retrieve documents matching all of the words, compare position data and filter out non-matching documents
+
 github.com/toastdriven/microsearch
 nlp.stanford.ed./IRBook
 speakerdeck
