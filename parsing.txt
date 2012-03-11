@@ -1,0 +1,29 @@
+regex is crap at nested constructs
+	also bad performance with long strings
+EBNF turns into a parse tree easily
+
+mediawiki tags are awful, parsed with a series of regexes, not a parser
+	can mediawiki be expressed in bnf?
+		apparently yes
+	pyparsing
+		overrides some default operators in parser definition
+		Forward() definitions kinda gross
+	PLY
+		probably better than pyparsing, better debug output, better performance
+		t_FOO() are token definitions.  docstrings are the regexes defining the matching rule
+		p_foo() are what to do with tokens
+		has limited lookahead as parser is fed tokens
+		can redefine docstrings later, but that's unmaintainable
+	pijnu
+		can cope with mostly vanilla bnf
+		untested
+		slow
+		not well-documented
+		applies parsing rules to data as it is parsed instead of building a tree and then converting
+	parsimonious - new, in development
+		speed
+		try to cache parsing results during deep parsing
+		test optimization assumptions (e.g. are dicts faster than lists?  still?  what about next python version?)
+		grammar is a string, doesn't have python's language limitations
+
+see github.com/erikrose/mediawiki-parser/blob/master/parsers.rst to see shopping list	
