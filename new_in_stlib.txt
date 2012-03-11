@@ -1,0 +1,39 @@
+3.3
+	faulthandler
+		dump tracebacks explicitly via faulthandler.enable(), even if segfaults
+	lzma
+		compression method better than bz2.  .xz or .lzma
+	os.sendfile(), much faster means of copying files
+	os.fwalk() which yields file descriptors
+	os.fsencode() and os.fsdecode() for en/decoding filenames based on filesystem type
+	packaging - replacement for distutils.  can also be used as distutils2 from PyPI
+	signals module revamped
+	socket module improved
+	urllib package revamped, can provide HTTP verbs
+		request.urlopen can take an iterable for uploading (e.g. a file object)
+
+3.2
+	argparse replaces optparse
+		required options and positional args, subcommands
+	logging module now has tutorial
+		logging.config.DictConfig()
+	futures (concurrent threads)
+	functools.  e.g. functools.lru_cache
+		can interrogate the wrapped method and the new method for cache data
+		functools.total_ordering (provides additional methods so long as you define __eq__ and __lt__, e.g.)
+	itertools
+	collections.Counter and saturation (set min/max for values in a collection)
+	unittest
+	WSGI updates
+	str.format_map can take any dict-like object
+	threading adds Barrier synchro
+	ast.literal_eval() is a secure replacement for eval(), prevents code execution
+	
+2.7
+	DeprecationWarning off by default
+	set literals ({1,2,3})
+	memoryview
+	importlib
+	
+	dict.viewkeys/values/items() returns a view objects now
+	
